@@ -8,13 +8,35 @@ import bodyParser from 'body-parser';
 import { V0MODELS } from './controllers/v0/model.index';
 
 (async () => {
+  
+
+  console.log("Adding model...");
   await sequelize.addModels(V0MODELS);
-  await sequelize.sync();
+  
+  console.log("Trying to connect to database...");
+  try {
+    await sequelize.authenticate();
+    console.log("Database connection has been established successfuly");
+  } catch(error) {
+    console.log("Unable to connect to database", error);
+  }
+  
+  console.log("Syncing model...");
+  try {
+    await sequelize.sync();
+    console.log("Model is synched");
+  } catch(error) {
+    console.log("Unable to sync model.", error);
+  }
+  
 
   const app = express();
   const port = process.env.PORT || 8080; // default port to listen
+  console.log("express app is created");
+  
   
   app.use(bodyParser.json());
+  console.log("app.use done");
 
   //CORS Should be restricted
   app.use(function(req, res, next) {
