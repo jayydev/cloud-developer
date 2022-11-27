@@ -46,3 +46,6 @@ Prevent requests without valid authentication headers.
 
 Add your own domain name and have it point to the running services (try adding a subdomain name to point to the processing server)
 > !NOTE: Domain names are not included in AWS’ free tier and will incur a cost.
+
+URL: http://image-filter-service.us-east-1.elasticbeanstalk.com/filteredimage?image_url={{}}
+Bearer Token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImpzQGdtYWlsLmNvbSIsInBhc3N3b3JkX2hhc2giOiIkMmIkMDUkZXJQZnpxeVMvWWJLVE1iWDZNNW5zT3o4bHlDT1lUMXZGcjBBMHZYdDhYUmYudktxV1cxNkciLCJjcmVhdGVkQXQiOiIyMDIyLTExLTIwVDAzOjQ4OjUyLjA0NFoiLCJ1cGRhdGVkQXQiOiIyMDIyLTExLTIwVDAzOjQ4OjUyLjA0NVoiLCJpYXQiOjE2NjkwNDc3NjB9.I3mJWsoWPyTdprKk8MAxJF8D4ZCbti0RLo1Pbl-Fkos
