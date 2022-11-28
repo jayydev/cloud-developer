@@ -1,9 +1,10 @@
-import express, { Request, Response } from 'express';
-import { NextFunction } from 'connect';
+import express, { Request, Response, NextFunction, response } from 'express';
 import bodyParser from 'body-parser';
 import * as jwt from 'jsonwebtoken';
 import { filterImageFromURL, deleteLocalFiles } from './util/util';
 import { config } from './config/config';
+import { request } from 'http';
+import { nextTick } from 'process';
 
 (async () => {
 
@@ -23,25 +24,20 @@ import { config } from './config/config';
   //    image_url: URL of a publicly accessible image
   // RETURNS
   //   the filtered image file [!!TIP res.sendFile(filteredpath); might be useful]
-  app.get("/filteredimage", requireAuth, async (req, resp) => {
-    const imageUrl = req.query.image_url;
-    if (!imageUrl || typeof imageUrl !== "string") {
-      resp.status(400).send(`Query param url has to be of the type string`);
-    }
-    else {
+  app.get("/filteredimage",
+    requireAuth,
+    //validateUrl,
+    async (req: Request, resp: Response, next: NextFunction) => {
+      const imageUrl = req.query.image_url as string;
       try {
-        const validUrl = new URL(imageUrl);
+        let absolutePath = await filterImageFromURL(imageUrl) as string;
+        resp.status(200).sendFile(absolutePath, function () {
+          deleteLocalFiles([absolutePath]);
+        });
       } catch (error) {
-        console.log(error);
-        resp.status(400).send(`Query param url ${imageUrl} is not a valid url`);
+        return next(error);
       }
-
-      const filePath = await filterImageFromURL(imageUrl);
-      resp.status(200).sendFile(filePath, function () {
-        deleteLocalFiles([filePath]);
-      });
-    }
-  });
+    });
 
   // validate authentication 
   function requireAuth(req: Request, resp: Response, next: NextFunction) {
@@ -55,7 +51,6 @@ import { config } from './config/config';
     }
 
     const token = token_bearer[1];
-
     return jwt.verify(token, config.jwt.secret, (err, decoded) => {
       if (err) {
         return resp.status(500).send({ auth: false, message: 'Failed to authenticate.' });
@@ -64,12 +59,28 @@ import { config } from './config/config';
     });
   }
 
+  // validate url
+  function validateUrl(req: Request, resp: Response, next: NextFunction) {
+    const imageUrl = req.query.image_url;
+    if (!imageUrl || typeof imageUrl !== "string") {
+      return resp.status(400).send(`Query param url has to be of the type string`);
+    }
+    else {
+      try {
+        const validUrl = new URL(imageUrl);
+      } catch (error) {
+        console.log(error);
+        return resp.status(400).send(`Query param url ${imageUrl} is not a valid url`);
+      }
+    }
+    next();
+  }
+
   // Root Endpoint
   // Displays a simple message to the user
   app.get("/", async (req, res) => {
     res.send("try GET /filteredimage?image_url={{}}")
   });
-
 
   // Start the Server
   app.listen(port, () => {
