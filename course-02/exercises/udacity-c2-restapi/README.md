@@ -37,6 +37,10 @@ npm run dev
 
 Developer mode runs off the TypeScript source. Any saves will reset the server and run the latest version of the codebase. 
 
-### Udagram Service deployment details
-URL: http://udagram-service.us-east-1.elasticbeanstalk.com/
-Bearer Token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImpzQGdtYWlsLmNvbSIsInBhc3N3b3JkX2hhc2giOiIkMmIkMDUkZXJQZnpxeVMvWWJLVE1iWDZNNW5zT3o4bHlDT1lUMXZGcjBBMHZYdDhYUmYudktxV1cxNkciLCJjcmVhdGVkQXQiOiIyMDIyLTExLTIwVDAzOjQ4OjUyLjA0NFoiLCJ1cGRhdGVkQXQiOiIyMDIyLTExLTIwVDAzOjQ4OjUyLjA0NVoiLCJpYXQiOjE2NjkwNDc3NjB9.I3mJWsoWPyTdprKk8MAxJF8D4ZCbti0RLo1Pbl-Fkos
+## Udagram Service deployment details
+
+##### URL
+```http://udagram-service.us-east-1.elasticbeanstalk.com/```
+
+##### Bearer Token
+```eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImpzQGdtYWlsLmNvbSIsInBhc3N3b3JkX2hhc2giOiIkMmIkMDUkZXJQZnpxeVMvWWJLVE1iWDZNNW5zT3o4bHlDT1lUMXZGcjBBMHZYdDhYUmYudktxV1cxNkciLCJjcmVhdGVkQXQiOiIyMDIyLTExLTIwVDAzOjQ4OjUyLjA0NFoiLCJ1cGRhdGVkQXQiOiIyMDIyLTExLTIwVDAzOjQ4OjUyLjA0NVoiLCJpYXQiOjE2NjkwNDc3NjB9.I3mJWsoWPyTdprKk8MAxJF8D4ZCbti0RLo1Pbl-Fkos```
